@@ -3,13 +3,21 @@ $( document ).ready(function() {
   var positive = 0;
   var negative = 0;
 
+    $('.row.secondary').hide();
+
     $('.col.left').on('click', function() {
-      postive++;
-      console.log(postive);
+      negative++;
+      $( ".row.secondary" ).slideToggle( "slow", function() {
+
+      });
+      console.log(negative);
     })
 
     $('.col.right').on('click', function() {
-      negative++;
-      console.log(negative);
+      positive++;
+      $( ".row.secondary" ).slideToggle( "slow", function() {
+
+      });
+      console.log(positive);
     })
 });
