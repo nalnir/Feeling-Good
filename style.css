@@ -11,14 +11,22 @@ h1 {
   padding-top: 50px;
 }
 
-.container {
+.container.main {
   margin: auto;
   width: 80%;
   padding: 10px;
 }
 
-.row {
+.row.main {
   height: 500px;
+}
+
+.container.secondary {
+
+}
+
+.row.secondary {
+  border: 1px solid black;
 }
 
 .col {
