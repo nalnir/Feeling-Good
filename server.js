@@ -1,32 +1,57 @@
 const express = require('express');
 const app = express();
 const http = require('http');
-//const session = require('express-session');
 const bodyParser = require('body-parser');
-
+const serverFuncs = require('./index.js');
 
 app.use(express.static(__dirname + '/'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 900000 }}))
 
 
-app.get('/', (req, res) => {
+app.post('/ipsN', (req, res) => {
+  var ipAddres = Object.keys(req.body).toString();
 
-  //console.log(req.query);
-  //console.log(res.statusCode);
-  //req.user = 'hardcoded';
+  serverFuncs.getCollection(ipAddres, function(result){
 
+    if(result !== null && result.ipAddres === ipAddres) {
+      console.log("won't increment NEGATIVE!");
+      serverFuncs.getBadClicks(function(result) {
+          console.log('All NEGATIVE clicks: ' + result);
+          res.json(result);
+      });
+     } else {
+        var clicks = Object.values(req.body)[0];
+        serverFuncs.badClicks(clicks);
+        serverFuncs.save(ipAddres);
+        serverFuncs.getBadClicks(function(result) {
+          console.log('All NEGATIVE clicks: ' + result);
+          res.json(result);
+        });
+    }
+  });
 });
 
-/*
-app.get('/logout', (req, res) => {
-  console.log('logout ', req.user);
-  req.user = null;
-  console.log('logOut ', req.user)
-});
-*/
+app.post('/ipsP', (req, res) => {
+  var ipAddres = Object.keys(req.body).toString();
 
-app.post('/', (req, res) => console.log(req.body));
+  serverFuncs.getCollection(ipAddres, function(result){
+     if(result !== null && result.ipAddres === ipAddres) {
+      console.log("won't increment POSITIVE!");
+      serverFuncs.getGoodClicks(function(result) {
+        console.log('All POSITIVE clicks: ' + result);
+        res.json(result);
+      });
+     } else {
+        var clicks = Object.values(req.body)[0];
+        serverFuncs.goodClicks(clicks);
+        serverFuncs.save(ipAddres);
+        serverFuncs.getGoodClicks(function(result) {
+          console.log('All POSITIVE clicks: ' + result);
+          res.json(result);
+        });
+    }
+  });
+});
 
 app.listen(8080, () => console.log('Example app listening on port 8080!'))
