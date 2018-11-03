@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "mongod && node database/inde.js && nodemon server.js",
+    "start": "sudo mongod && node database/inde.js && nodemon server.js",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js"
   },
