@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prod": "git add . && git commit -m 'deploy chat to instance' && git push -u origin master && pm2 deploy production",
     "start": "sudo mongod && node database/inde.js && nodemon server.js",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js"

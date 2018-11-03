@@ -5,7 +5,7 @@ module.exports = {
         // First application
         {
             name: 'fg',
-            script: 'nodemon server.js',
+            script: 'npm start',
             env: {
                 COMMON_VARIABLE:
                     'true'
